@@ -3,6 +3,7 @@ using Application.Mapping;
 using Application.Offers;
 using Application.Services;
 using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -51,10 +52,11 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
     await context.Database.MigrateAsync();
     Console.WriteLine("After migration---------------------------------------------------------------------------");
     await Seed.ClearData(context);
-    await Seed.SeedData(context);
+    await Seed.SeedData(context, userManager);
     Mapping._context = context;
     Mapping.Configure();
 }

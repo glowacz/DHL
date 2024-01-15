@@ -1,4 +1,5 @@
 using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
@@ -19,8 +20,22 @@ namespace Persistence
 
             _context.SaveChanges();
         }
-        public static async Task SeedData(DbContext context)
+        public static async Task SeedData(DbContext context, UserManager<IdentityUser> userManager)
         {
+            if(!userManager.Users.Any())
+            {
+                var users = new List<IdentityUser>
+                {
+                    new IdentityUser{UserName = "Courier1", Email = "c1@test.com"},
+                    new IdentityUser{UserName = "Courier2", Email = "c2@test.com"},
+                };
+
+                foreach(var user in users)
+                {
+                    await userManager.CreateAsync(user, "pswrd");
+                }
+            }
+
             if (!context.Set<Order>().Any())
             {
                 for (int i = 0; i < 10; i++)
