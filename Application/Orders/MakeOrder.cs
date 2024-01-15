@@ -1,6 +1,5 @@
 using MediatR;
 using API.DTOs;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Mapster;
 using Domain;

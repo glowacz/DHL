@@ -33,3 +33,4 @@ C:\Users\glowa\source\repos\glowacz\DHL\Application\obj\Debug\net8.0\Application
 C:\Users\glowa\source\repos\glowacz\DHL\Application\obj\Debug\net8.0\refint\Application.dll
 C:\Users\glowa\source\repos\glowacz\DHL\Application\obj\Debug\net8.0\Application.pdb
 C:\Users\glowa\source\repos\glowacz\DHL\Application\obj\Debug\net8.0\ref\Application.dll
+C:\Users\glowa\source\repos\glowacz\DHL\Application\obj\Debug\net8.0\Application.sourcelink.json

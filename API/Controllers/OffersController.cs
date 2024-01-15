@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using API.DTOs;
 using Application.Offers;
 using Microsoft.AspNetCore.Mvc;

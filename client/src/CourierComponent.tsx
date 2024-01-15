@@ -5,6 +5,7 @@ import { IOrder } from './models/order'
 
 function CourierComponent() {
   const [orders, setOrders] = useState([])
+  const [showInput, setShowInput] = useState(false)
 
   function getOrders() {
     console.log("getOrders")
@@ -18,8 +19,8 @@ function CourierComponent() {
 
   useEffect( () => {
     getOrders();
-    // const intervalId = setInterval(getOrders, 1000);
-    // return () => clearInterval(intervalId);
+    const intervalId = setInterval(getOrders, 1000);
+    return () => clearInterval(intervalId);
   }, [])
 
   const handleTake = (orderId: number) => {
@@ -50,6 +51,10 @@ function CourierComponent() {
   };
 
   const handleCannotDeliver = (orderId: number) => {
+    setShowInput(true);
+  };
+
+  const postCannotDeliver = (orderId: number) => {
     axios.post(`http://localhost:5001/api/CannotDeliverOrder/${orderId}`, {
         "courierId": 11
     })
@@ -67,12 +72,22 @@ function CourierComponent() {
         return <>
             <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
             <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+            (showInput ? <input type='text'>aaa</input> : <></>)
           </>
       case 4:
+        if(showInput){
+          return <>
+            <button className="Accept" onClick={() => handleDeliver(order.id!)}>Deliver</button>
+            <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+            <textarea className='Reason' defaultValue={"Reason for not delivering"}></textarea>
+          </>
+        }
+        else{
           return <>
             <button className="Accept" onClick={() => handleDeliver(order.id!)}>Deliver</button>
             <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
           </>
+        }
     }
   }
 

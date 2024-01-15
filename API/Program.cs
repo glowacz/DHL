@@ -1,3 +1,4 @@
+using API.Extensions;
 using Application.Mapping;
 using Application.Offers;
 using Application.Services;
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddDbContext<DataContext>(opt =>
 {
@@ -40,7 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
-
+app.UseAuthorization(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 app.MapControllers();
 
 using var scope = app.Services.CreateScope();
