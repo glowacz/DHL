@@ -52,7 +52,7 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
     Console.WriteLine("After migration---------------------------------------------------------------------------");
     await Seed.ClearData(context);

@@ -1,3 +1,4 @@
+using Domain;
 using Microsoft.AspNetCore.Identity;
 using Persistence;
 
@@ -8,7 +9,7 @@ namespace API.Extensions
         public static IServiceCollection AddIdentityServices(this IServiceCollection services,
             IConfiguration config)
         {
-            services.AddIdentityCore<IdentityUser>(opt =>
+            services.AddIdentityCore<AppUser>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireDigit = false;

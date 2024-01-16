@@ -20,14 +20,19 @@ namespace Persistence
 
             _context.SaveChanges();
         }
-        public static async Task SeedData(DbContext context, UserManager<IdentityUser> userManager)
+        public static async Task SeedData(DbContext context, UserManager<AppUser> userManager)
         {
+            // foreach(var user in userManager.Users)
+            // {
+            //     await userManager.DeleteAsync(user);
+            // }
+
             if(!userManager.Users.Any())
             {
-                var users = new List<IdentityUser>
+                var users = new List<AppUser>
                 {
-                    new IdentityUser{UserName = "Courier1", Email = "c1@test.com"},
-                    new IdentityUser{UserName = "Courier2", Email = "c2@test.com"},
+                    new AppUser{UserName = "Głowacz", Name="Głowacz", Email = "c1@test.com"},
+                    new AppUser{UserName = "Pedro", Name="Pedro", Email = "c2@test.com"},
                 };
 
                 foreach(var user in users)

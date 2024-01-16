@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +13,8 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        public UserManager<IdentityUser> UserManager { get; }
-        public AccountController(UserManager<IdentityUser> userManager)
+        public UserManager<AppUser> UserManager { get; }
+        public AccountController(UserManager<AppUser> userManager)
         {
             this.UserManager = userManager;
             
@@ -33,6 +34,7 @@ namespace API.Controllers
                 return new UserDTO
                 {
                     Token = "this will be a token",
+                    Name = user.Name
                 };
             }
             
