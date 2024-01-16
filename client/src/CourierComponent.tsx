@@ -69,11 +69,23 @@ function CourierComponent() {
       case 1:
         return <button className="Accept" onClick={() => handleTake(order.id!)}>Take</button>
       case 3:
-        return <>
-            <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
-            <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
-            (showInput ? <input type='text'>aaa</input> : <></>)
-          </>
+        if(showInput){
+          return <>
+              <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
+              <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+              {/* <input type='text' /> */}
+              <textarea className='Reason' defaultValue={"R"}></textarea>
+              {/* <textarea className='Reason' defaultValue={"Reason for not delivering"}></textarea> */}
+              <button className="Accept" onClick={() => postCannotDeliver(order.id!)}>Send</button>
+            </>
+        }
+        else {
+          return <>
+              <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
+              <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+            </>
+        }
+          
       case 4:
         if(showInput){
           return <>
