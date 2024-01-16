@@ -9,6 +9,8 @@ namespace Application.Orders
         public class Query : IRequest<int>
         {
             public int OrderId { get; set; }
+            public string Name { get; set; }
+            public string Reason { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, int>
@@ -34,8 +36,8 @@ namespace Application.Orders
                 await _context.SaveChangesAsync();
 
                 string destEmail = "glowacki.pj@gmail.com",
-                subject = "Cannot deliver",
-                message = $"I cannot deliver order {order.Id}";
+                subject = $"Cannot deliver - {request.Name}",
+                message = $"I cannot deliver order {order.Id}.\n\nThe reason is:\n{request.Reason}\n\n{request.Name}";
                 _emailSender.SendEmailAsync(destEmail, subject, message);
 
                 return 0;

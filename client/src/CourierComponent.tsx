@@ -2,10 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import { IOrder } from './models/order'
+import { useNavigate } from 'react-router-dom'
+import CannotDeliverComponent from './CannotDeliverComponent'
 
 function CourierComponent() {
+  // const navigate = useNavigate();
   const [orders, setOrders] = useState([])
-  const [showInput, setShowInput] = useState(false)
+  const [cannotDeliver, setCannotDeliver] = useState(false)
+  const [cannotDeliverId, setCannotDeliverId] = useState(0)
 
   function getOrders() {
     console.log("getOrders")
@@ -51,16 +55,9 @@ function CourierComponent() {
   };
 
   const handleCannotDeliver = (orderId: number) => {
-    setShowInput(true);
-  };
-
-  const postCannotDeliver = (orderId: number) => {
-    axios.post(`http://localhost:5001/api/CannotDeliverOrder/${orderId}`, {
-        "courierId": 11
-    })
-    .then(_response => {
-      getOrders();
-    });
+    // navigate("/CannotDeliver");
+    setCannotDeliver(true);
+    setCannotDeliverId(orderId);
   };
 
   function renderButtons(order: IOrder)
@@ -69,41 +66,21 @@ function CourierComponent() {
       case 1:
         return <button className="Accept" onClick={() => handleTake(order.id!)}>Take</button>
       case 3:
-        if(showInput){
-          return <>
-              <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
-              <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
-              {/* <input type='text' /> */}
-              <textarea className='Reason' defaultValue={"R"}></textarea>
-              {/* <textarea className='Reason' defaultValue={"Reason for not delivering"}></textarea> */}
-              <button className="Accept" onClick={() => postCannotDeliver(order.id!)}>Send</button>
-            </>
-        }
-        else {
-          return <>
-              <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
-              <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
-            </>
-        }
+        return <>
+            <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
+            <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+          </>
           
       case 4:
-        if(showInput){
-          return <>
-            <button className="Accept" onClick={() => handleDeliver(order.id!)}>Deliver</button>
-            <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
-            <textarea className='Reason' defaultValue={"Reason for not delivering"}></textarea>
-          </>
-        }
-        else{
-          return <>
-            <button className="Accept" onClick={() => handleDeliver(order.id!)}>Deliver</button>
-            <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
-          </>
-        }
+        return <>
+          <button className="Accept" onClick={() => handleDeliver(order.id!)}>Deliver</button>
+          <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+        </>
     }
   }
 
   return (
+    cannotDeliver ? <CannotDeliverComponent orderId={cannotDeliverId} /> :
     <div>
       <h1>DHL - Courier</h1>
       <ul>
