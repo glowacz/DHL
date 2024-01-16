@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj": {}
+    "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj": {
+    "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Piotrek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Application\\obj\\",
+        "projectPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\glowa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Piotrek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\glowa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -32,11 +32,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj"
+              "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj": {
-                "projectPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj"
+              "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj": {
+                "projectPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -80,20 +80,20 @@
         }
       }
     },
-    "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj": {
+    "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Piotrek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\glowa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Piotrek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\glowa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -145,20 +145,20 @@
         }
       }
     },
-    "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj": {
+    "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj",
-        "packagesPath": "C:\\Users\\Piotrek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Persistence\\obj\\",
+        "projectPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\glowa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Piotrek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\glowa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -173,8 +173,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Piotrek\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj"
+              "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\glowa\\source\\repos\\glowacz\\DHL\\Domain\\Domain.csproj"
               }
             }
           }
