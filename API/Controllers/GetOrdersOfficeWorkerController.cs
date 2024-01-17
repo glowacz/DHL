@@ -9,7 +9,6 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class GetOrdersOfficeWorkerController : BaseApiController
     {
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<OrderDTO>>> GetOrders(int id)
         {
