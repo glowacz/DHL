@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Services;
 using Domain;
@@ -12,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
     [ApiController]
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
@@ -26,6 +26,7 @@ namespace API.Controllers
             
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
@@ -37,16 +38,13 @@ namespace API.Controllers
 
             if (result)
             {
-                return new UserDTO
-                {
-                    Token = _tokenService.CreateToken(user),
-                    Name = user.Name
-                };
+                return CreateUserObject(user);
             }
             
             return Unauthorized();
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
@@ -64,15 +62,28 @@ namespace API.Controllers
 
             if(result.Succeeded)
             {
-                return new UserDTO
-                {
-                    Name = user.Name,
-                    Role = user.Role,
-                    Token = _tokenService.CreateToken(user),
-                };
+                return CreateUserObject(user);
             }
 
-            return BadRequest("Problem registering user (possibly duplicate email)");
+            // return BadRequest("Problem registering user (possibly duplicate email)");
+            return BadRequest(result.Errors);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<UserDTO>> GetCurrentUser()
+        {
+            var user = await UserManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+            return CreateUserObject(user);
+        }
+
+        private UserDTO CreateUserObject(AppUser user)
+        {
+            return new UserDTO
+            {
+                Name = user.Name,
+                Role = user.Role,
+                Token = _tokenService.CreateToken(user),
+            };
         }
     }
 }
