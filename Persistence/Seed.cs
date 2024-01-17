@@ -7,7 +7,7 @@ namespace Persistence
     public static class Seed
     {
 
-        public static async Task ClearData(DataContext context)
+        public static async Task ClearDatabase(DataContext context)
         {
             Console.WriteLine("Clearing data---------------------------------------------------------------------------");
             var _context = context;
@@ -20,27 +20,39 @@ namespace Persistence
 
             _context.SaveChanges();
         }
-        public static async Task SeedData(DbContext context, UserManager<AppUser> userManager)
-        {
-            // foreach(var user in userManager.Users)
-            // {
-            //     await userManager.DeleteAsync(user);
-            // }
 
+        public static async Task ClearUsers(UserManager<AppUser> userManager)
+        {
+            // List<AppUser> users = new List<AppUser>(userManager.Users);
+            List<AppUser> users = [.. userManager.Users];
+
+            foreach(var user in users)
+            {
+                await userManager.DeleteAsync(user);
+            }
+        }
+
+        public static async Task SeedUsers(UserManager<AppUser> userManager)
+        {
             if(!userManager.Users.Any())
             {
                 var users = new List<AppUser>
                 {
                     new AppUser{UserName = "Głowacz", Name="Głowacz", Email = "c1@test.com"},
                     new AppUser{UserName = "Pedro", Name="Pedro", Email = "c2@test.com"},
+                    new AppUser{UserName = "Vlada", Name="Vlada", Email = "c3@test.com"},
                 };
 
                 foreach(var user in users)
                 {
                     await userManager.CreateAsync(user, "pswrd");
+                    Console.WriteLine(userManager.Users.Count());
                 }
             }
+        }
 
+        public static async Task SeedDatabase(DataContext context)
+        {
             if (!context.Set<Order>().Any())
             {
                 for (int i = 0; i < 10; i++)
@@ -74,6 +86,14 @@ namespace Persistence
 
                 context.SaveChanges();
             }
+        }
+        public static async Task SeedMain(DataContext context, UserManager<AppUser> userManager)
+        {
+            await ClearUsers(userManager);
+            await SeedUsers(userManager);
+
+            await ClearDatabase(context);
+            await SeedDatabase(context);
         }
     }
 }

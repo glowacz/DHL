@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Services;
 using Domain;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Identity;
@@ -14,8 +15,10 @@ namespace API.Controllers
     public class AccountController : ControllerBase
     {
         public UserManager<AppUser> UserManager { get; }
-        public AccountController(UserManager<AppUser> userManager)
+        private readonly TokenService _tokenService;
+        public AccountController(UserManager<AppUser> userManager, TokenService tokenService)
         {
+            _tokenService = tokenService;
             this.UserManager = userManager;
             
         }
@@ -33,7 +36,7 @@ namespace API.Controllers
             {
                 return new UserDTO
                 {
-                    Token = "this will be a token",
+                    Token = _tokenService.CreateToken(user),
                     Name = user.Name
                 };
             }

@@ -43,7 +43,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
-// app.UseAuthorization(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+app.UseAuthentication();
+app.UseAuthorization(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 app.MapControllers();
 
 using var scope = app.Services.CreateScope();
@@ -55,8 +58,8 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
     Console.WriteLine("After migration---------------------------------------------------------------------------");
-    await Seed.ClearData(context);
-    await Seed.SeedData(context, userManager);
+    // await Seed.ClearData(context);
+    await Seed.SeedMain(context, userManager);
     Mapping._context = context;
     Mapping.Configure();
 }
