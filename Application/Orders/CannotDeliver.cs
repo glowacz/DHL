@@ -35,7 +35,8 @@ namespace Application.Orders
                 // _context.Orders.Remove(order);
                 await _context.SaveChangesAsync();
 
-                string destEmail = "glowacki.pj@gmail.com",
+                // string destEmail = "glowacki.pj@gmail.com",
+                string destEmail = order.Email,
                 subject = $"Cannot deliver - {request.Name}",
                 message = $"I cannot deliver order {order.Id}.\n\nThe reason is:\n{request.Reason}\n\n{request.Name}";
                 _emailSender.SendEmailAsync(destEmail, subject, message);

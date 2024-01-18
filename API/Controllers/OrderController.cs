@@ -13,7 +13,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<double>> TakeOrder(InquiryDTO order)
+        public async Task<ActionResult<double>> MakeOrder(InquiryDTO order)
         {
             return await Mediator.Send(new MakeOrder.Query {Order = order});
         }

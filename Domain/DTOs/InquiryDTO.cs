@@ -8,5 +8,6 @@ namespace API.DTOs
         public DateOnly Date { get; set; }
         public AddressDTO SourceAddress { get; set; }
         public AddressDTO DestinationAddress { get; set; }
+        public string Email { get; set; }
     }
 }

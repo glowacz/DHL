@@ -14,5 +14,6 @@ namespace Domain
         public int Status { get; set; }
         public int CourierID { get; set; }
         public DateTime lastTimestamp { get; set; }
+        public string Email { get; set; }
     }
 }

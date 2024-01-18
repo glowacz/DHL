@@ -15,9 +15,11 @@ namespace Application.Orders
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
-            public Handler(DataContext context)
+            private readonly IEmailSender _emailSender;
+            public Handler(DataContext context, IEmailSender emailSender)
             {
-                _context = context;  
+                _context = context;
+                _emailSender = emailSender;
             }
             public async Task Handle(Command request, CancellationToken cancellationToken)
             {
@@ -32,6 +34,12 @@ namespace Application.Orders
                     _context.DeliveredOrders.Add(oldOrder);
                     _context.Orders.Remove(order);
                     await _context.SaveChangesAsync();
+
+                    // string destEmail = "glowacki.pj@gmail.com",
+                    string destEmail = order.Email,
+                    subject = $"Order delivered",
+                    message = $"Our courier has successfuly delivered your order :)";
+                    _emailSender.SendEmailAsync(destEmail, subject, message);
                 }
                 
             }

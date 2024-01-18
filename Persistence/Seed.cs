@@ -78,6 +78,7 @@ namespace Persistence
                             City = $"City {i + 2}"
                         },
                         Status = i % 3 == 0 ? 1 : 0,
+                        Email = "pgenius100@gmail.com",
                         CourierID = 0
                     };
 

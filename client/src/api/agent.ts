@@ -5,7 +5,8 @@ import { IInquiry } from "../models/inquiry";
 import { User, UserFormValues } from "../models/user";
 
 axios.defaults.baseURL = 'http://localhost:5001/api';
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+axios.defaults.headers.common['Authorization'] = `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IlZsYWRhIiwibmFtZWlkIjoiN2E3NDY4ZGItNzJiZi00MGNhLWFkMDItOWIyMzdmMzg3OWM1IiwiZW1haWwiOiJjM0B0ZXN0LmNvbSIsIm5iZiI6MTcwNTYxNTI0NSwiZXhwIjoxNzA2MjIwMDQ1LCJpYXQiOjE3MDU2MTUyNDV9.-uWObBqDQXQC0IyzWK6ua-eklLyuzUmf2k3IrUXe9yY02_Xoy4dAIue4ftKG4RtpjThfeO-exWchgURvENvDgQ`;
+// axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
 
 const responseBody = <T>(response: AxiosResponse<T>)=> response.data;
 
