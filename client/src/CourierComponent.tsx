@@ -4,6 +4,7 @@ import axios from 'axios'
 import { IOrder } from './models/order'
 import { useNavigate } from 'react-router-dom'
 import CannotDeliverComponent from './CannotDeliverComponent'
+import agent from './api/agent'
 
 function CourierComponent() {
   // const navigate = useNavigate();
@@ -28,27 +29,21 @@ function CourierComponent() {
   }, [])
 
   const handleTake = (orderId: number) => {
-    axios.post(`http://localhost:5001/api/TakeOrder/${orderId}`, {
-        "courierId": 11
-    })
+    agent.Courier.take(orderId, 11)
     .then(_response => {
       getOrders();
     });
   };
 
   const handlePickup = (orderId: number) => {
-    axios.post(`http://localhost:5001/api/PickupOrder/${orderId}`, {
-        "courierId": 11
-    })
+    agent.Courier.pickup(orderId, 11)
     .then(_response => {
       getOrders();
     });
   };
 
   const handleDeliver = (orderId: number) => {
-    axios.post(`http://localhost:5001/api/DeliverOrder/${orderId}`, {
-        "courierId": 11
-    })
+    agent.Courier.deliver(orderId, 11)
     .then(_response => {
       getOrders();
     });

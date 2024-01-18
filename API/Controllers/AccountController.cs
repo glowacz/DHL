@@ -17,12 +17,12 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        public UserManager<AppUser> UserManager { get; }
+        private readonly UserManager<AppUser> _userManager;
         private readonly TokenService _tokenService;
         public AccountController(UserManager<AppUser> userManager, TokenService tokenService)
         {
             _tokenService = tokenService;
-            this.UserManager = userManager;
+            this._userManager = userManager;
             
         }
 
@@ -30,11 +30,11 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
-            var user = await UserManager.FindByEmailAsync(loginDTO.Email);
+            var user = await _userManager.FindByEmailAsync(loginDTO.Email);
 
             if (user == null) return Unauthorized();
 
-            var result = await UserManager.CheckPasswordAsync(user, loginDTO.Password);
+            var result = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
 
             if (result)
             {
@@ -48,7 +48,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
-            // if(await UserManager.Users.AnyAsync(x => x.UserName == registerDTO.))
+            // if(await _userManager.Users.AnyAsync(x => x.UserName == registerDTO.))
 
             var user = new AppUser
             {
@@ -58,7 +58,7 @@ namespace API.Controllers
                   Role = registerDTO.Role,
             };
 
-            var result = await UserManager.CreateAsync(user, registerDTO.Password);
+            var result = await _userManager.CreateAsync(user, registerDTO.Password);
 
             if(result.Succeeded)
             {
@@ -72,7 +72,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<UserDTO>> GetCurrentUser()
         {
-            var user = await UserManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+            var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
             return CreateUserObject(user);
         }
 

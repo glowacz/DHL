@@ -3,7 +3,7 @@ import { Client, ClientFormValues } from "../models/client";
 import { IOrder, IOrderDisplay } from "../models/order";
 import { IInquiry } from "../models/inquiry";
 
-axios.defaults.baseURL = 'http://localhost:5147/api';
+axios.defaults.baseURL = 'http://localhost:5001/api';
 
 const responseBody = <T>(response: AxiosResponse<T>)=> response.data;
 
@@ -29,10 +29,18 @@ const Inquiries = {
     get: () => requests.get<IInquiry []>('inquiries')
 }
 
+const Courier = {
+    take: (orderId: number, courierId: number) => requests.post<Client>(`TakeOrder/${orderId}`, {'courierId': courierId}),
+    pickup: (orderId: number, courierId: number) => requests.post<Client>(`PickupOrder/${orderId}`, {'courierId': courierId}),
+    deliver: (orderId: number, courierId: number) => requests.post<Client>(`DeliverOrder/${orderId}`, {'courierId': courierId}),
+    cannotDeliver: (orderId: number, courierId: number) => requests.post<Client>(`CannotDeliverOrder/${orderId}`, {'courierId': courierId}),
+}
+
 const agent = {
     Account,
     Orders,
-    Inquiries // not yet used
+    Inquiries,
+    Courier
 }
 
 export default agent;
