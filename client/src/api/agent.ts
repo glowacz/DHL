@@ -2,8 +2,10 @@ import axios, {AxiosResponse} from "axios";
 import { Client, ClientFormValues } from "../models/client";
 import { IOrder, IOrderDisplay } from "../models/order";
 import { IInquiry } from "../models/inquiry";
+import { User, UserFormValues } from "../models/user";
 
 axios.defaults.baseURL = 'http://localhost:5001/api';
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
 
 const responseBody = <T>(response: AxiosResponse<T>)=> response.data;
 
@@ -15,9 +17,9 @@ const requests = {
 }
 
 const Account = {
-    current:() => requests.get<Client>('/account'),
-    login: (client: ClientFormValues) => requests.post<Client>('/account/login', client),
-    //register: (client: ClientFormValues) => requests.post<Client>('/account/register', client),
+    current:() => requests.get<User>('/account'),
+    login: (client: UserFormValues) => requests.post<User>('/account/login', client),
+    register: (client: UserFormValues) => requests.post<User>('/account/register', client),
 }
 
 const Orders = {
@@ -30,10 +32,10 @@ const Inquiries = {
 }
 
 const Courier = {
-    take: (orderId: number, courierId: number) => requests.post<Client>(`TakeOrder/${orderId}`, {'courierId': courierId}),
-    pickup: (orderId: number, courierId: number) => requests.post<Client>(`PickupOrder/${orderId}`, {'courierId': courierId}),
-    deliver: (orderId: number, courierId: number) => requests.post<Client>(`DeliverOrder/${orderId}`, {'courierId': courierId}),
-    cannotDeliver: (orderId: number, courierId: number) => requests.post<Client>(`CannotDeliverOrder/${orderId}`, {'courierId': courierId}),
+    take: (orderId: number, courierId: number) => requests.post<User>(`TakeOrder/${orderId}`, {'courierId': courierId}),
+    pickup: (orderId: number, courierId: number) => requests.post<User>(`PickupOrder/${orderId}`, {'courierId': courierId}),
+    deliver: (orderId: number, courierId: number) => requests.post<User>(`DeliverOrder/${orderId}`, {'courierId': courierId}),
+    cannotDeliver: (orderId: number, courierId: number) => requests.post<User>(`CannotDeliverOrder/${orderId}`, {'courierId': courierId}),
 }
 
 const agent = {

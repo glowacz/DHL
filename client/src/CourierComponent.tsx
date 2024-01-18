@@ -7,7 +7,7 @@ import CannotDeliverComponent from './CannotDeliverComponent'
 import agent from './api/agent'
 
 function CourierComponent() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([])
   const [cannotDeliver, setCannotDeliver] = useState(false)
   const [cannotDeliverId, setCannotDeliverId] = useState(0)
@@ -16,7 +16,7 @@ function CourierComponent() {
     console.log("getOrders")
     axios.get('http://localhost:5001/api/GetOrdersCourier/11')
     .then(response => {
-      setOrders(response.data);
+      setOrders(response.data); // już bez data ????????????????????????????????????????????????????????????????
       console.log(response.data)
       console.log("request")
     })
