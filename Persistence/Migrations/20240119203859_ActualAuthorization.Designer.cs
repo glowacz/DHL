@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -10,9 +11,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240119203859_ActualAuthorization")]
+    partial class ActualAuthorization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
@@ -196,6 +199,8 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CourierId");
+
                     b.HasIndex("DestinationAddressId");
 
                     b.HasIndex("SourceAddressId");
@@ -352,6 +357,12 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Order", b =>
                 {
+                    b.HasOne("Domain.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("CourierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Address", "DestinationAddress")
                         .WithMany()
                         .HasForeignKey("DestinationAddressId")
@@ -367,6 +378,8 @@ namespace Persistence.Migrations
                     b.Navigation("DestinationAddress");
 
                     b.Navigation("SourceAddress");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

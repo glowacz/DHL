@@ -20,10 +20,12 @@ namespace Application.Orders
             }
             public async Task<List<OrderDTO>> Handle(Query request, CancellationToken cancellationToken)
             {
+                //request.CourierId = GetCurrentUser();
                 List<OrderDTO> res = new List<OrderDTO>();
                 foreach(var order in _context.Orders)
                 {
-                    if(order.Status == 1 || order.CourierID == request.CourierId)
+                    //if(order.Status == 1 || order.CourierID == request.CourierId)
+                    if(order.Status == 1)
                         res.Add(await Mapping.Mapping.OrderToDTO(order));
                 }
 

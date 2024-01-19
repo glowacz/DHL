@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain
 {
     public class Order
@@ -12,8 +14,11 @@ namespace Domain
         public int DestinationAddressId { get; set; }
         public Address DestinationAddress { get; set; }
         public int Status { get; set; }
-        public int CourierID { get; set; }
         public DateTime lastTimestamp { get; set; }
         public string Email { get; set; }
+        //public int CourierID { get; set; }
+        public string CourierId { get; set; }
+        //[ForeignKey(nameof(CourierId))]
+        //public AppUser User { get; set; }
     }
 }

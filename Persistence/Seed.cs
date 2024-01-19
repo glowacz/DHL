@@ -79,7 +79,9 @@ namespace Persistence
                         },
                         Status = i % 3 == 0 ? 1 : 0,
                         Email = "pgenius100@gmail.com",
-                        CourierID = 0
+                        //CourierId = context.Users.First().Id,
+                        CourierId = string.Empty
+                        //CourierID = 0
                     };
 
                     context.Set<Order>().Add(order);

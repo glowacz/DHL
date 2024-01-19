@@ -1,3 +1,4 @@
+using API.Extensions;
 using Application.Orders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,8 @@ namespace API.Controllers
         [HttpPost("PickupOrder/{id}")]
         public async Task<IActionResult> PickupOrder(int id)
         {
-            await Mediator.Send(new Pickup.Command{OrderId = id});
+            var courierId = HttpContext.GetUserId();
+            await Mediator.Send(new Pickup.Command{OrderId = id, CourierId = courierId});
             return Ok($"Order {id} picked up");
         }
     }
