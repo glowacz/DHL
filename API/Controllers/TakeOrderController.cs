@@ -15,10 +15,22 @@ namespace API.Controllers
         public async Task<IActionResult> TakeOrder(int id, [FromBody] CourierActionDTO body)
         {
             var courierId = HttpContext.GetUserId();
+            var courierName = HttpContext.GetUserName();
             if(courierId == string.Empty) return Unauthorized();
             //await Mediator.Send(new Take.Command{OrderId = id, CourierID = body.CourierId});
-            await Mediator.Send(new Take.Command { OrderId = id, CourierID = courierId});
-            return Ok($"Order {id} taken by courier {body.CourierId}");
+            int res = await Mediator.Send(new Take.Command { OrderId = id, CourierID = courierId});
+
+            switch (res)
+            {
+                case 0:
+                    return Ok($"Order {id} taken by {courierName}");
+                case 1:
+                    return BadRequest($"Order {id} doesn't exist in the database");
+                case 2:
+                    return BadRequest($"Order {id} status doesn't allow for taking");
+                default:
+                    return BadRequest($"Other error");
+            }
         }
     }
 }

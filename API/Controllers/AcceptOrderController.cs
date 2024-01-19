@@ -1,3 +1,4 @@
+using API.Extensions;
 using Application.Orders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,8 +11,21 @@ namespace API.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> AcceptOrder(int id)
         {
-            await Mediator.Send(new Accept.Command{OrderId = id});
-            return Ok();
+            var name = HttpContext.GetUserName();
+
+            int res = await Mediator.Send(new Accept.Command{OrderId = id});
+
+            switch (res)
+            {
+                case 0:
+                    return Ok($"Order {id} accepted by office worker ({name})");
+                case 1:
+                    return BadRequest($"Order {id} doesn't exist in the database");
+                case 2:
+                    return BadRequest($"Order {id} status doesn't allow for accepting");
+                default:
+                    return BadRequest($"Other error");
+            }
         }
     }
 }
