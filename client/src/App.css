@@ -13,8 +13,8 @@
   /* gap: 10px; */
 }
 
-.action-buttons{
-/* button{ */
+/* .action-buttons{ */
+.ActionButton {
   font-size: x-large;
   margin-left: 5px;
   margin-right: 5px;

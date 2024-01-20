@@ -41,7 +41,7 @@ const LandingPage = () => {
         script.async = true;
         script.onload = () => {
             (window as any).google.accounts.id.initialize({
-                client_id: "904528640879-rch2m0d50pu0fbqbk15mt6evhp31vpfv.apps.googleusercontent.com", 
+                client_id: "904528640879-rch2m0d50pu0fbqbk15mt6evhp31vpfv.apps.googleusercontent.com",
                 // musi być id !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 callback: handleCallbackResponse,
             });
@@ -62,7 +62,7 @@ const LandingPage = () => {
         
        {/* { clientStore.isLoggedIn ? (<div id="signInDiv"/>) : (<Button onClick={clientStore.logout}>Logout</Button>)}*/}
         <div id="signInDiv"/>
-      <h1>CourierHub</h1>
+      {/* <h1>CourierHub</h1> */}
       <button className="landing-button" onClick={goToForm}>
         Load Form
       </button>

@@ -59,17 +59,17 @@ function CourierComponent() {
   {
     switch(order.status){
       case 1:
-        return <button className="Accept" onClick={() => handleTake(order.id!)}>Take</button>
+        return <button className="ActionButton Accept" onClick={() => handleTake(order.id!)}>Take</button>
       case 3:
         return <>
-            <button className="Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
-            <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+            <button className="ActionButton Accept" onClick={() => handlePickup(order.id!)}>Pickup</button>
+            <button className="ActionButton Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
           </>
           
       case 4:
         return <>
-          <button className="Accept" onClick={() => handleDeliver(order.id!)}>Deliver</button>
-          <button className="Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
+          <button className="ActionButton Accept" onClick={() => handleDeliver(order.id!)}>Deliver</button>
+          <button className="ActionButton Reject" onClick={() => handleCannotDeliver(order.id!)}>Cannot deliver</button>
         </>
     }
   }

@@ -43,11 +43,11 @@ function OfficeWorkerComponent() {
             <div className="action-buttons">
               {order.status == 0 ? 
                 (<>
-                  <button className="Accept" onClick={() => handleAccept(order.id!)}>Accept</button>
-                  <button className="Reject" onClick={() => handleReject(order.id!)}>Reject</button>
+                  <button className="ActionButton Accept" onClick={() => handleAccept(order.id!)}>Accept</button>
+                  <button className="ActionButton Reject" onClick={() => handleReject(order.id!)}>Reject</button>
                 </>)
                 : 
-                <button className="Rejected" disabled>Rejected</button>
+                <button className="ActionButton Rejected" disabled>Rejected</button>
               }
             </div>
           </li>
