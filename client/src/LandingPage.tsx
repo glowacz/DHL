@@ -3,6 +3,7 @@ import './LandingPage.css';
 import { observer } from 'mobx-react-lite';
 import {useEffect, useState} from "react";
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 //import axios from 'axios';
 //import { ClientFormValues } from '../models/client';
 
@@ -10,7 +11,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
     const goToForm = () => {
-    navigate('/form'); // COŚ INNEGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      navigate('/form'); // COŚ INNEGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   };
     const [, /*setUser*/] = useState({});
     function handleCallbackResponse(response: any) {
@@ -24,11 +25,9 @@ const LandingPage = () => {
             if(subc==undefined){
                 subc = 'error'
             }
-            // history.push({
-            //     pathname: '/login',
-            //     state: { sub: subc }
-            // })
-            navigate('/login', {state: { sub: subc }});
+            // navigate('/login', {state: { sub: subc }});
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.credential}`;
+            navigate('/Courier', {state: { sub: subc }});
             
         } else {
             console.log("No user object found in the decoded token.");
@@ -60,12 +59,12 @@ const LandingPage = () => {
   return (
     <div className="landing-container">
         
-       {/* { clientStore.isLoggedIn ? (<div id="signInDiv"/>) : (<Button onClick={clientStore.logout}>Logout</Button>)}*/}
-        <div id="signInDiv"/>
-      {/* <h1>CourierHub</h1> */}
-      <button className="landing-button" onClick={goToForm}>
-        Load Form
-      </button>
+      {/* { clientStore.isLoggedIn ? (<div id="signInDiv"/>) : (<Button onClick={clientStore.logout}>Logout</Button>)}*/}
+      <div id="signInDiv"/>
+        {/* <h1>DHL</h1> */}
+        <button className="landing-button" onClick={goToForm}>
+          Load Form
+        </button>
     </div>
   );
 };
