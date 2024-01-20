@@ -23,7 +23,7 @@ namespace API.Controllers
         {
             _tokenService = tokenService;
             this._userManager = userManager;
-            
+
         }
 
         [AllowAnonymous]
@@ -40,7 +40,7 @@ namespace API.Controllers
             {
                 return CreateUserObject(user);
             }
-            
+
             return Unauthorized();
         }
 
@@ -52,15 +52,15 @@ namespace API.Controllers
 
             var user = new AppUser
             {
-                  Name = registerDTO.Name,
-                  UserName = registerDTO.Name,
-                  Email = registerDTO.Email,
-                  Role = registerDTO.Role,
+                Name = registerDTO.Name,
+                UserName = registerDTO.Name,
+                Email = registerDTO.Email,
+                Role = registerDTO.Role,
             };
 
             var result = await _userManager.CreateAsync(user, registerDTO.Password);
 
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return CreateUserObject(user);
             }

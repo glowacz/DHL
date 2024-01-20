@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 // // Add services to the container.
+//builder.Services.AddControllers();
 builder.Services.AddControllers(opt =>
 {
     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -55,8 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
-app.UseAuthentication();
-app.UseAuthorization(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ app.UseAuthentication();
+ app.UseAuthorization(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 app.MapControllers();
 
@@ -66,12 +67,12 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
-    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    //var userManager = services.GetRequiredService<UserManager<AppUser>>();
     //var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
     await context.Database.MigrateAsync();
     Console.WriteLine("After migration---------------------------------------------------------------------------");
-    // await Seed.ClearData(context);
-    await Seed.SeedMain(context, userManager);
+    //await Seed.SeedMain(context, userManager);
+    await Seed.SeedMain(context);
     Mapping._context = context;
     Mapping.Configure();
 }

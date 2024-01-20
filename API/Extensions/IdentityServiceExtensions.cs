@@ -24,7 +24,7 @@ namespace API.Extensions
             .AddEntityFrameworkStores<DataContext>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret keysuper secret keysuper secret keysuper secret key"));
-            
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {

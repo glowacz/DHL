@@ -15,6 +15,7 @@ namespace API.Controllers
         public async Task<ActionResult<List<OrderDTO>>> GetOrders()
         {
             var courierId = HttpContext.GetUserId();
+            Console.WriteLine(courierId);
 
             return await Mediator.Send(new GetOrdersCourier.Query{ CourierId = courierId });
         }

@@ -93,11 +93,11 @@ namespace Persistence
                 context.SaveChanges();
             }
         }
-        public static async Task SeedMain(DataContext context, UserManager<AppUser> userManager)
+        public static async Task SeedMain(DataContext context)
         //public static async Task SeedMain(DataContext context, UserManager<IdentityUser> userManager)
         {
-            await ClearUsers(userManager);
-            await SeedUsers(userManager);
+            //await ClearUsers(userManager);
+            //await SeedUsers(userManager);
 
             await ClearDatabase(context);
             await SeedDatabase(context);
