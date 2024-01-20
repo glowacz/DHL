@@ -41,7 +41,7 @@ const LandingPage = () => {
         script.async = true;
         script.onload = () => {
             (window as any).google.accounts.id.initialize({
-                client_id: "1086724498905-vjkbqo0jh0m6n0g9vfu9m2vqf01abbib.apps.googleusercontent.com", 
+                client_id: "904528640879-rch2m0d50pu0fbqbk15mt6evhp31vpfv.apps.googleusercontent.com", 
                 // musi być id !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 callback: handleCallbackResponse,
             });

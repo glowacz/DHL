@@ -21,10 +21,12 @@ namespace Persistence
             _context.SaveChanges();
         }
 
+        //public static async Task ClearUsers(UserManager<IdentityUser> userManager)
         public static async Task ClearUsers(UserManager<AppUser> userManager)
         {
             // List<AppUser> users = new List<AppUser>(userManager.Users);
             List<AppUser> users = [.. userManager.Users];
+            //List<IdentityUser> users = [.. userManager.Users];
 
             foreach(var user in users)
             {
@@ -32,6 +34,7 @@ namespace Persistence
             }
         }
 
+        //public static async Task SeedUsers(UserManager<IdentityUser> userManager)
         public static async Task SeedUsers(UserManager<AppUser> userManager)
         {
             if(!userManager.Users.Any())
@@ -91,6 +94,7 @@ namespace Persistence
             }
         }
         public static async Task SeedMain(DataContext context, UserManager<AppUser> userManager)
+        //public static async Task SeedMain(DataContext context, UserManager<IdentityUser> userManager)
         {
             await ClearUsers(userManager);
             await SeedUsers(userManager);

@@ -23,6 +23,11 @@ builder.Services.AddControllers(opt =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+    {
+        googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    });
 builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddDbContext<DataContext>(opt =>
@@ -62,6 +67,7 @@ try
 {
     var context = services.GetRequiredService<DataContext>();
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    //var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
     await context.Database.MigrateAsync();
     Console.WriteLine("After migration---------------------------------------------------------------------------");
     // await Seed.ClearData(context);
