@@ -11,6 +11,7 @@ namespace Application.Orders
             public int OrderId { get; set; }
             public string Name { get; set; }
             public string Reason { get; set; }
+            public string CourierId { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, int>
@@ -27,7 +28,8 @@ namespace Application.Orders
                 var order = await _context.Orders.FindAsync(request.OrderId);
                 
                 if(order is null) return 1;
-                if(!(order.Status == 3 || order.Status == 4)) return 2; 
+                if(!(order.Status == 3 || order.Status == 4)) return 2;
+                if (order.CourierId != request.CourierId) return 3;
 
                 order.Status = 1; // now someone else can take it
                 // var oldOrder = order.Adapt<OldOrder>();
