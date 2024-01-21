@@ -65,11 +65,11 @@ var services1 = scope.ServiceProvider;
 try
 {
     var context = services1.GetRequiredService<DataContext>();
-    //var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    var userManager = services1.GetRequiredService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
     Console.WriteLine("After migration---------------------------------------------------------------------------");
-    //await Seed.SeedMain(context, userManager);
-    await Seed.SeedMain(context);
+    await Seed.SeedMain(context, userManager);
+    //await Seed.SeedMain(context);
     Mapping._context = context;
     Mapping.Configure();
 }

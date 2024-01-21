@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using API.Extensions;
 using API.Services;
 using Domain;
 using Domain.DTOs;
@@ -14,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("Identity/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -26,22 +27,37 @@ namespace API.Controllers
 
         }
 
+        //[AllowAnonymous]
+        //[HttpPost("login")]
+        //public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
+        //{
+        //    var user = await _userManager.FindByEmailAsync(loginDTO.Email);
+
+        //    if (user == null) return Unauthorized();
+
+        //    var result = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
+
+        //    if (result)
+        //    {
+        //        return CreateUserObject(user);
+        //    }
+
+        //    return Unauthorized();
+        //}
+
         [AllowAnonymous]
-        [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
+        [HttpGet("login")]
+        public async Task<ActionResult<UserDTO>> Login()
         {
-            var user = await _userManager.FindByEmailAsync(loginDTO.Email);
+            var courierId = HttpContext.GetUserSub();
+
+            var user = await _userManager.FindByIdAsync(courierId);
 
             if (user == null) return Unauthorized();
 
-            var result = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
+            //var result = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
 
-            if (result)
-            {
-                return CreateUserObject(user);
-            }
-
-            return Unauthorized();
+            return CreateUserObject(user);
         }
 
         [AllowAnonymous]

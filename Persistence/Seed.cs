@@ -41,15 +41,17 @@ namespace Persistence
             {
                 var users = new List<AppUser>
                 {
-                    new AppUser{UserName = "Głowacz", Name="Głowacz", Email = "c1@test.com"},
+                    new AppUser{UserName = "Glowacz", Name="Glowacz", Email = "c1@test.com",
+                    Id = "105119251730054942410"},
                     new AppUser{UserName = "Pedro", Name="Pedro", Email = "c2@test.com"},
                     new AppUser{UserName = "Vlada", Name="Vlada", Email = "c3@test.com"},
                 };
 
                 foreach(var user in users)
                 {
-                    await userManager.CreateAsync(user, "pswrd");
-                    Console.WriteLine(userManager.Users.Count());
+                    var res = await userManager.CreateAsync(user, "pswrd");
+                    var cnt = userManager.Users.Count();
+                    Console.WriteLine(cnt);
                 }
             }
         }
@@ -93,11 +95,11 @@ namespace Persistence
                 context.SaveChanges();
             }
         }
-        public static async Task SeedMain(DataContext context)
-        //public static async Task SeedMain(DataContext context, UserManager<IdentityUser> userManager)
+        //public static async Task SeedMain(DataContext context)
+        public static async Task SeedMain(DataContext context, UserManager<AppUser> userManager)
         {
-            //await ClearUsers(userManager);
-            //await SeedUsers(userManager);
+            await ClearUsers(userManager);
+            await SeedUsers(userManager);
 
             await ClearDatabase(context);
             await SeedDatabase(context);
