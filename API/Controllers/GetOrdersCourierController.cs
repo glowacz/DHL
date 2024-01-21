@@ -1,6 +1,7 @@
 using API.Extensions;
 using Application.Orders;
 using Domain.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,11 +11,13 @@ namespace API.Controllers
     public class GetOrdersCourierController : BaseApiController
     {
         [HttpGet]
+        //[AllowAnonymous]
         //[HttpGet("{id}")]
         //public async Task<ActionResult<List<OrderDTO>>> GetOrders(int id)
         public async Task<ActionResult<List<OrderDTO>>> GetOrders()
         {
-            var courierId = HttpContext.GetUserId();
+            //var courierId = HttpContext.GetUserId();
+            var courierId = HttpContext.GetUserSub();
             Console.WriteLine(courierId);
 
             return await Mediator.Send(new GetOrdersCourier.Query{ CourierId = courierId });

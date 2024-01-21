@@ -15,7 +15,8 @@ namespace API.Controllers
         public async Task<IActionResult> TakeOrder(int id, [FromBody] CourierActionDTO body)
         {
             var courierId = HttpContext.GetUserId();
-            var courierName = HttpContext.GetUserName();
+            //var courierName = HttpContext.GetUserName();
+            var courierName = "szymo";
             if(courierId == string.Empty) return Unauthorized();
             //await Mediator.Send(new Take.Command{OrderId = id, CourierID = body.CourierId});
             int res = await Mediator.Send(new Take.Command { OrderId = id, CourierID = courierId});
