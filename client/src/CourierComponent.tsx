@@ -159,19 +159,6 @@ function CourierComponent() {
         </ul>
       </div>
     </div>
-    // <div>
-    //   <h1>DHL - Courier</h1>
-    //   <ul>
-    //     {orders.map((order: IOrder) => (
-    //       <li key={order.id}>
-    //         {order.destinationAddress.streetName} {order.weight} g
-    //         <div className="action-buttons">
-    //           {renderButtons(order)}
-    //         </div>
-    //       </li>
-    //     ))}
-    //   </ul>
-    // </div>
   )
 }
 

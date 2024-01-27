@@ -9,7 +9,7 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class AcceptOrderController : BaseApiController
     {
-        [HttpPost("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> AcceptOrder(int id)
         {
             //var name = HttpContext.GetUserName();
