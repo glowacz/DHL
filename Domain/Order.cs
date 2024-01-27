@@ -17,7 +17,7 @@ namespace Domain
         public DateTime lastTimestamp { get; set; }
         public string Email { get; set; }
         //public int CourierID { get; set; }
-        public string CourierId { get; set; }
+        public string CourierEmail { get; set; }
         //[ForeignKey(nameof(CourierId))]
         //public AppUser User { get; set; }
     }

@@ -14,6 +14,24 @@ interface FormData {
   }
 
 function CannotDeliverComponent({orderId} : Props) {
+  function xhRequest(type: string, endpoint: string){
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+            } else {
+                console.error('Błąd pobierania danych:', xhr.status);
+                // Obsługa błędów
+            }
+        }
+    };
+
+    xhr.open(type, endpoint);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.withCredentials = true;
+    xhr.send(JSON.stringify(formData));
+  }
+
     const [formData, setFormData] = useState<FormData>({
         name: '',
         reason: '',
@@ -33,9 +51,10 @@ function CannotDeliverComponent({orderId} : Props) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         console.log(JSON.stringify(formData));
-        axios.post(`http://localhost:5001/api/CannotDeliverOrder/${orderId}`, formData)
-        .then(async response => {
-        });
+        xhRequest('POST', `https://localhost:5001/api/CannotDeliverOrder/${orderId}`)
+        // axios.post(`http://localhost:5001/api/CannotDeliverOrder/${orderId}`, formData)
+        // .then(async response => {
+        // });
         // e.preventDefault();
     }
 

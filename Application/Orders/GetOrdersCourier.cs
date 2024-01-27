@@ -8,7 +8,7 @@ namespace Application.Orders
     {
         public class Query : IRequest<List<OrderDTO>>
         {
-            public string CourierId { get; set; }
+            public string CourierEmail { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, List<OrderDTO>>
@@ -23,8 +23,7 @@ namespace Application.Orders
                 List<OrderDTO> res = new List<OrderDTO>();
                 foreach(var order in _context.Orders)
                 {
-                    if(order.Status == 1 || order.CourierId == request.CourierId)
-                    //if(order.Status == 1)
+                    if(order.Status == 1 || order.CourierEmail == request.CourierEmail)
                         res.Add(await Mapping.Mapping.OrderToDTO(order));
                 }
 

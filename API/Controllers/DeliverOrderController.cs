@@ -1,6 +1,7 @@
 using API.Extensions;
 using Application.Orders;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -8,13 +9,13 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class DeliverOrderController : BaseApiController
     {
-        [HttpPost("{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> HandleRequest(int id)
         {
-            var courierId = HttpContext.GetUserId();
-            var courierName = HttpContext.GetUserName();
+            var courierEmail = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var courierName = HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
-            int res = await Mediator.Send(new Deliver.Command{OrderId = id, CourierId = courierId});
+            int res = await Mediator.Send(new Deliver.Command{OrderId = id, CourierEmail = courierEmail});
 
             switch (res)
             {

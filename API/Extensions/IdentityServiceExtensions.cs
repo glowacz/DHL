@@ -2,6 +2,8 @@ using System.Text;
 using API.Services;
 using Domain;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,51 +19,41 @@ namespace API.Extensions
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret keysuper secret keysuper secret keysuper secret key"));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opt =>
-                {
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        //ValidateIssuerSigningKey = true,
-                        ValidateIssuerSigningKey = false,
-                        IssuerSigningKey = key,
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                    };
-                })
-                .AddGoogle(googleOptions =>
-                {
-                    googleOptions.ClientId = config["Authentication:Google:ClientId"];
-                    googleOptions.ClientSecret = config["Authentication:Google:ClientSecret"];
-                }); ;
-
-            //services.AddDefaultIdentity<AppUser>(opt => opt.SignIn.RequireConfirmedAccount = true)
-            
-            services.AddDefaultIdentity<AppUser>(opt =>
+            services.AddAuthentication(options =>
             {
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequireDigit = false;
-                opt.Password.RequireUppercase = false;
-                opt.Password.RequiredLength = 5;
-                opt.User.RequireUniqueEmail = true;
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
             })
-                .AddEntityFrameworkStores<DataContext>();
+            .AddCookie(options =>
+            {
+                //options.LoginPath = "/account/google-login";
+                options.LoginPath = "/Auth/login-google";
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = context =>
+                    {
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        return Task.CompletedTask;
+                    }
+                };
+            })
+           .AddGoogle( options =>
+           {
+               options.ClientId = config["Authentication:Google:ClientId"];
+               options.ClientSecret = config["Authentication:Google:ClientSecret"];
+               //   options.Events.OnRedirectToAuthorizationEndpoint
+               options.Events.OnRedirectToAuthorizationEndpoint = context =>
+               {
+                   context.Response.Redirect(context.RedirectUri + "&prompt=consent");
+                   return Task.CompletedTask;
+               };
+               options.Events.OnRemoteFailure = context =>
+               {
+                   context.Response.StatusCode = StatusCodes.Status401Unauthorized; // Ustawienie statusu 401 (brak autoryzacji)
+                   return Task.CompletedTask;
+               };
 
-            //services.AddIdentityCore<AppUser>(opt =>
-            //{
-            //    opt.Password.RequireNonAlphanumeric = false;
-            //    opt.Password.RequireDigit = false;
-            //    opt.Password.RequireUppercase = false;
-            //    opt.Password.RequiredLength = 5;
-            //    opt.User.RequireUniqueEmail = true;
-            //})
-            //.AddEntityFrameworkStores<DataContext>();
-
-            // services.AddIdentityCore<AppUser>(opt => opt.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores< DataContext>();
-
-
-
-            services.AddScoped<TokenService>();
+           });
 
             return services;
         }

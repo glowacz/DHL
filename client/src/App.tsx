@@ -4,6 +4,7 @@ import OfficeWorkerComponent from './OfficeWorkerComponent';
 import CourierComponent from './CourierComponent';
 import LandingPage from './LandingPage';
 import LogInFormComponent from './LogInFormComponent';
+import CannotDeliverComponent from './CannotDeliverComponent';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" Component={LogInFormComponent} />
         <Route path="/OfficeWorker" Component={OfficeWorkerComponent} />
         <Route path="/Courier" Component={CourierComponent} />
+        {/* <Route path="/CannotDeliver" Component={CannotDeliverComponent} /> */}
       </Routes>
     </Router>
   )

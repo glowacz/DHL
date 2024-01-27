@@ -12,41 +12,67 @@ function CourierComponent() {
   const [cannotDeliver, setCannotDeliver] = useState(false)
   const [cannotDeliverId, setCannotDeliverId] = useState(0)
 
+  function xhRequest(type: string, endpoint: string){
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                getOrders();
+            } else {
+                console.error('Błąd pobierania danych:', xhr.status);
+                // Obsługa błędów
+            }
+        }
+    };
+
+    xhr.open(type, endpoint);
+    xhr.withCredentials = true;
+    xhr.send();
+  }
+
   function getOrders() {
-    console.log("getOrders")
-    axios.get('http://localhost:5001/api/GetOrdersCourier')
-    .then(response => {
-      setOrders(response.data); // już bez data ????????????????????????????????????????????????????????????????
-      console.log(response.data)
-      console.log("request")
-    })
+    console.log("getOrders");
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                console.log(response);
+                setOrders(response);
+            } else {
+                console.error('Błąd pobierania danych:', xhr.status);
+                // Obsługa błędów
+            }
+        }
+    };
+
+    xhr.open('GET', 'https://localhost:5001/api/GetOrdersCourier');
+    xhr.withCredentials = true;
+    xhr.send();
   }
 
   useEffect( () => {
+    /* global google */
     getOrders();
     const intervalId = setInterval(getOrders, 1000);
     return () => clearInterval(intervalId);
   }, [])
 
   const handleTake = (orderId: number) => {
-    agent.Courier.take(orderId, 11)
-    .then(_response => {
-      getOrders();
-    });
+    xhRequest('GET', `https://localhost:5001/api/TakeOrder/${orderId}`)
   };
 
   const handlePickup = (orderId: number) => {
-    agent.Courier.pickup(orderId, 11)
-    .then(_response => {
-      getOrders();
-    });
+    xhRequest('GET', `https://localhost:5001/api/PickupOrder/${orderId}`)
+    // agent.Courier.pickup(orderId, 11)
+    // .then(_response => {
+    //   getOrders();
+    // });
   };
 
   const handleDeliver = (orderId: number) => {
-    agent.Courier.deliver(orderId, 11)
-    .then(_response => {
-      getOrders();
-    });
+    xhRequest('GET', `https://localhost:5001/api/DeliverOrder/${orderId}`)
   };
 
   const handleCannotDeliver = (orderId: number) => {

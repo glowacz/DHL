@@ -7,6 +7,9 @@ using API.Extensions;
 using API.Services;
 using Domain;
 using Domain.DTOs;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +18,9 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("Identity/[controller]")]
+    //[Route("Identity/[controller]")]
+    [Route("[controller]"), AllowAnonymous]
+    //[Route("account"), AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -27,23 +32,31 @@ namespace API.Controllers
 
         }
 
-        //[AllowAnonymous]
-        //[HttpPost("login")]
-        //public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
-        //{
-        //    var user = await _userManager.FindByEmailAsync(loginDTO.Email);
+        [AllowAnonymous]
+        [HttpGet("google-login")]
+        public IActionResult GoogleLogin()
+        {
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
 
-        //    if (user == null) return Unauthorized();
+        [AllowAnonymous]
+        [HttpGet("google-response")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-        //    var result = await _userManager.CheckPasswordAsync(user, loginDTO.Password);
-
-        //    if (result)
-        //    {
-        //        return CreateUserObject(user);
-        //    }
-
-        //    return Unauthorized();
-        //}
+            var claims = result.Principal.Identities.FirstOrDefault()
+                .Claims.Select(claim => new
+                {
+                    claim.Issuer,
+                    claim.OriginalIssuer,
+                    claim.Type,
+                    claim.Value
+                });
+            return Redirect("https://localhost:3001");
+            //return new JsonResult(claims);
+        }
 
         [AllowAnonymous]
         [HttpGet("login")]

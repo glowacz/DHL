@@ -2,6 +2,7 @@ using API.Extensions;
 using Application.Orders;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -13,11 +14,12 @@ namespace API.Controllers
         public async Task<IActionResult> HandleRequest(int id, [FromBody] CannotDeliverDTO data)
         // public async Task<IActionResult> HandleRequest(int id)
         {
-            var courierId = HttpContext.GetUserId();
-            var courierName = HttpContext.GetUserName();
+            var courierEmail = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var courierName = HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
             int res = await Mediator.Send(new CannotDeliver.Query{OrderId = id, 
-                Name = data.Name, Reason = data.Reason, CourierId = courierId});
+                Name = data.Name, Reason = data.Reason,
+                CourierEmail = courierEmail});
 
             switch (res)
             {

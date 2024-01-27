@@ -83,9 +83,10 @@ namespace Persistence
                             City = $"City {i + 2}"
                         },
                         Status = i % 3 == 0 ? 1 : 0,
-                        Email = "pgenius100@gmail.com",
+                        Email = "ptr.2906@gmail.com",
+                        //Email = "pgenius100@gmail.com",
                         //CourierId = context.Users.First().Id,
-                        CourierId = string.Empty
+                        CourierEmail = "glowacki.pj@gmail.com"
                         //CourierID = 0
                     };
 
@@ -95,11 +96,11 @@ namespace Persistence
                 context.SaveChanges();
             }
         }
-        //public static async Task SeedMain(DataContext context)
-        public static async Task SeedMain(DataContext context, UserManager<AppUser> userManager)
+        public static async Task SeedMain(DataContext context)
+        // public static async Task SeedMain(DataContext context, UserManager<AppUser> userManager)
         {
-            await ClearUsers(userManager);
-            await SeedUsers(userManager);
+            // await ClearUsers(userManager);
+            // await SeedUsers(userManager);
 
             await ClearDatabase(context);
             await SeedDatabase(context);

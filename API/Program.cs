@@ -15,7 +15,7 @@ var services = builder.Services;
 
 services.AddTransient<IEmailSender, EmailSender>();
 
-services.AddControllers();
+// services.AddControllers();
 services.AddControllers(opt =>
 {
     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -35,16 +35,29 @@ services.AddDbContext<DataContext>(opt =>
 
 services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetOffer.Handler).Assembly));
 
-services.AddCors(opt => {
-    opt.AddPolicy("CorsPolicy", policy => {
-        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3001");
+services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:3001", "https://localhost:3001", "https://accounts.google.com")
+        //policy.AllowAnyOrigin()
+        //.SetIsOriginAllowedToAllowWildcardSubdomains()
+        .AllowAnyMethod().AllowAnyHeader()
+        //;
+        .AllowCredentials();
     });
 });
+
+//services.AddCors(opt => {
+//    opt.AddPolicy("CorsPolicy", policy => {
+//        policy.AllowAnyOrigin()
+//        .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+//    });
+//});
 
 //services.AddDefaultIdentity<AppUser>();
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -54,8 +67,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
+//app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 app.MapControllers();
 
@@ -65,11 +80,11 @@ var services1 = scope.ServiceProvider;
 try
 {
     var context = services1.GetRequiredService<DataContext>();
-    var userManager = services1.GetRequiredService<UserManager<AppUser>>();
+    // var userManager = services1.GetRequiredService<UserManager<AppUser>>();
     await context.Database.MigrateAsync();
     Console.WriteLine("After migration---------------------------------------------------------------------------");
-    await Seed.SeedMain(context, userManager);
-    //await Seed.SeedMain(context);
+    // await Seed.SeedMain(context, userManager);
+    await Seed.SeedMain(context);
     Mapping._context = context;
     Mapping.Configure();
 }

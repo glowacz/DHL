@@ -9,10 +9,14 @@ import axios from 'axios';
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  
+    const goToCourier = () => {
+      navigate('/Courier'); // COŚ INNEGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    };
 
-    const goToForm = () => {
-      navigate('/form'); // COŚ INNEGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  };
+    const goToOfficeWorker = () => {
+      navigate('/OfficeWorker'); // COŚ INNEGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    };
     const [, /*setUser*/] = useState({});
     function handleCallbackResponse(response: any) {
         console.log("Encoded INT ID token: " + response.credential);
@@ -61,9 +65,14 @@ const LandingPage = () => {
         
       {/* { clientStore.isLoggedIn ? (<div id="signInDiv"/>) : (<Button onClick={clientStore.logout}>Logout</Button>)}*/}
       <div id="signInDiv"/>
+      <a className='loginButton' href="https://localhost:5001/Auth/login-google">Zaloguj z google</a>
+      {/* {isLogged ? (<a className='loginButton' href="https://localhost:7105/Auth/logout-google">wyloguj z google</a>):null} */}
         {/* <h1>DHL</h1> */}
-        <button className="landing-button" onClick={goToForm}>
-          Load Form
+        <button className="landing-button" onClick={goToOfficeWorker}>
+          Office Worker
+        </button>
+        <button className="landing-button" onClick={goToCourier}>
+          Courier
         </button>
     </div>
   );

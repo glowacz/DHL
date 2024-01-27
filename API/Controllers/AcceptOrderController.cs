@@ -1,6 +1,7 @@
 using API.Extensions;
 using Application.Orders;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -11,7 +12,8 @@ namespace API.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> AcceptOrder(int id)
         {
-            var name = HttpContext.GetUserName();
+            //var name = HttpContext.GetUserName();
+            var name = HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
             int res = await Mediator.Send(new Accept.Command{OrderId = id});
 

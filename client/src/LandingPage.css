@@ -8,6 +8,7 @@
 }
 
 .landing-button {
+  margin: 40px;
   font-size: 2rem;
   padding: 20px 40px;
   background-color: #4CAF50;
