@@ -5,6 +5,7 @@
   justify-content: flex-start;
   height: 100vh;
   padding-top: 5vh;
+  /* width: 2000px; */
 }
 
 .landing-button {
@@ -17,6 +18,26 @@
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+a.loginButton {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  float: left;
+
+  margin: 20px;
+  font-size: 2rem;
+  padding: 20px 40px;
+  /* background-color: #4CAF50; */
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: blue;
 }
 
 .landing-button:hover {

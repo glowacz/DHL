@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Services;
 using Domain;
+using Domain.DTOs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -60,6 +61,13 @@ namespace API.Controllers
             //  var logoutUrl = $"https://accounts.google.com/o/oauth2/logout?client_id=484929956573-66ordm7uo4ug3i1oerd7p4992idsq2mh.apps.googleusercontent.com&redirect_uri={callbackUrl}";
 
             return Redirect("https://localhost:3001");
+        }
+
+        [HttpGet("get-current-user")]
+        public async Task<ActionResult<string>> GetCurrentUser()
+        {
+            var user = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            return user;
         }
     }
 }

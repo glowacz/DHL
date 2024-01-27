@@ -86,7 +86,7 @@ namespace Persistence
                         Email = "ptr.2906@gmail.com",
                         //Email = "pgenius100@gmail.com",
                         //CourierId = context.Users.First().Id,
-                        CourierEmail = "glowacki.pj@gmail.com"
+                        CourierEmail = ""
                         //CourierID = 0
                     };
 
