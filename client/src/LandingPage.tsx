@@ -64,7 +64,7 @@ const LandingPage = () => {
   //     };
   // }, []);
 
-  function xhRequest(type: string, endpoint: string){
+  function getUser(){
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -81,35 +81,41 @@ const LandingPage = () => {
         }
     };
 
-    xhr.open(type, endpoint);
+    xhr.open('GET', 'https://localhost:5001/Auth/get-current-user');
     xhr.withCredentials = true;
     xhr.send();
   }
 
   useEffect(() => {
-    xhRequest('GET', 'https://localhost:5001/Auth/get-current-user');
-}, []);
+    getUser();
+  }, []);
     
   return (
-    <div className="landing-container">
-        
-      {/* { clientStore.isLoggedIn ? (<div id="signInDiv"/>) : (<Button onClick={clientStore.logout}>Logout</Button>)}*/}
-      <h1>DHL</h1>
-      <br></br><br></br>
-      {/* <div id="signInDiv"/> */}
-      {!isLoggedIn ? 
-      <a className='loginButton' href="https://localhost:5001/Auth/login-google">Zaloguj z google</a>
-      : <p>Zalogowano jako {user}</p>
-      }
-      {isLoggedIn ? 
-      (<a className='loginButton' href="https://localhost:5001/Auth/logout-google">Wyloguj z google</a>):null}
-        
-      <button className="landing-button" onClick={goToOfficeWorker}>
-        Office Worker
-      </button>
-      <button className="landing-button" onClick={goToCourier}>
-        Courier
-      </button>
+    <div className='container'>
+      <div className='header'>
+        <div></div>
+        <h1>DHL</h1>
+        <div className='top-right'>
+          {!isLoggedIn ? 
+          <a className='loginButton' 
+          href="https://localhost:5001/Auth/login-google">Zaloguj z google</a>
+          : <p className='user-text'>Zalogowano jako {user}</p>
+          }
+          {isLoggedIn ? 
+          (<a className='loginButton' 
+          href="https://localhost:5001/Auth/logout-google">Wyloguj z google</a>):null}
+        </div>
+      </div>
+
+      {/* <div className="landing-container"> */}
+      <div className="center">
+        <button className="landing-button" onClick={goToOfficeWorker}>
+          Office Worker
+        </button>
+        <button className="landing-button" onClick={goToCourier}>
+          Courier
+        </button>
+      </div>
     </div>
   );
 };

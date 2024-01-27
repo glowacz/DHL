@@ -7,10 +7,38 @@ import CannotDeliverComponent from './CannotDeliverComponent'
 import agent from './api/agent'
 
 function CourierComponent() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState("")
   const navigate = useNavigate();
   const [orders, setOrders] = useState([])
   const [cannotDeliver, setCannotDeliver] = useState(false)
   const [cannotDeliverId, setCannotDeliverId] = useState(0)
+
+  function getUser(){
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // const response = JSON.parse(xhr.responseText);
+                const response = xhr.responseText;
+                console.log(response);
+                setUser(response);
+                setIsLoggedIn(true);
+            } else {
+                console.error('Błąd pobierania danych:', xhr.status);
+                // Obsługa błędów
+            }
+        }
+    };
+
+    xhr.open('GET', 'https://localhost:5001/Auth/get-current-user');
+    xhr.withCredentials = true;
+    xhr.send();
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   function xhRequest(type: string, endpoint: string){
     const xhr = new XMLHttpRequest();
@@ -102,19 +130,48 @@ function CourierComponent() {
 
   return (
     cannotDeliver ? <CannotDeliverComponent orderId={cannotDeliverId} /> :
-    <div>
-      <h1>DHL - Courier</h1>
-      <ul>
-        {orders.map((order: IOrder) => (
-          <li key={order.id}>
-            {order.destinationAddress.streetName} {order.weight} g
-            <div className="action-buttons">
-              {renderButtons(order)}
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div className='container'>
+      <div className='header'>
+        <div></div>
+        <h1>DHL</h1>
+        <div className='top-right'>
+          {!isLoggedIn ? 
+          <a className='loginButton' 
+          href="https://localhost:5001/Auth/login-google">Zaloguj z google</a>
+          : <p className='user-text'>Zalogowano jako {user}</p>
+          }
+          {isLoggedIn ? 
+          (<a className='loginButton' 
+          href="https://localhost:5001/Auth/logout-google">Wyloguj z google</a>):null}
+        </div>
+      </div>
+
+      <div className="center">
+        <ul>
+          {orders.map((order: IOrder) => (
+            <li key={order.id}>
+              {order.destinationAddress.streetName} {order.weight} g
+              <div className="action-buttons">
+                {renderButtons(order)}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
+    // <div>
+    //   <h1>DHL - Courier</h1>
+    //   <ul>
+    //     {orders.map((order: IOrder) => (
+    //       <li key={order.id}>
+    //         {order.destinationAddress.streetName} {order.weight} g
+    //         <div className="action-buttons">
+    //           {renderButtons(order)}
+    //         </div>
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
   )
 }
 
