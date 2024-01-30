@@ -14,11 +14,11 @@ const LandingPage = () => {
   const navigate = useNavigate();
   
   const goToCourier = () => {
-    navigate('/Courier'); // COŚ INNEGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    navigate('/Courier');
   };
 
   const goToOfficeWorker = () => {
-    navigate('/OfficeWorker'); // COŚ INNEGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    navigate('/OfficeWorker');
   };
   const [, /*setUser*/] = useState({});
 
