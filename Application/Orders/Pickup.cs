@@ -8,7 +8,7 @@ namespace Application.Orders
         public class Command : IRequest<int>
         {
             public int OrderId { get; set; }
-            public string CourierId { get; set; }
+            public string CourierEmail { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, int>
@@ -23,7 +23,7 @@ namespace Application.Orders
                 var order = await _context.Orders.FindAsync(request.OrderId);
                 if (order == null) return 1;
                 if (order.Status != 3) return 2;
-                if (order.CourierId != request.CourierId) return 3;
+                if (order.CourierEmail != request.CourierEmail) return 3;
 
                 order.Status = 4;
                 order.lastTimestamp = DateTime.Now;

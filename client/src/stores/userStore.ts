@@ -5,7 +5,7 @@ import { store } from "./store";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export default class UserStore {
-    navigate = useNavigate();
+    // navigate = useNavigate();
     user: User | null = null;
 
     constructor() {

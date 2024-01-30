@@ -8,7 +8,7 @@ namespace Application.Orders
         public class Command : IRequest<int>
         {
             public int OrderId { get; set; }
-            public string CourierID { get; set; }
+            public string CourierEmail { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, int>
@@ -25,7 +25,8 @@ namespace Application.Orders
                 if (order == null) return 1;
                 if (order.Status != 1) return 2;
 
-                order.CourierId = request.CourierID;
+                //order.CourierId = request.CourierID;
+                order.CourierEmail = request.CourierEmail;
                 //order.CourierID = request.CourierID;
                 order.Status = 3;
                 order.lastTimestamp = DateTime.Now;

@@ -2,6 +2,7 @@ using API.Extensions;
 using Application.Orders;
 using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -10,15 +11,17 @@ namespace API.Controllers
     // [Route("api/[controller]")]
     public class TakeOrderController : BaseApiController
     {
-        // [HttpPost("{id}")]
-        [HttpPost("TakeOrder/{id}")]
-        public async Task<IActionResult> TakeOrder(int id, [FromBody] CourierActionDTO body)
+        //[HttpPost("TakeOrder/{id}")]
+        [HttpGet("TakeOrder/{id}")]
+        //public async Task<IActionResult> TakeOrder(int id, [FromBody] CourierActionDTO body)
+        public async Task<IActionResult> TakeOrder(int id)
         {
-            var courierId = HttpContext.GetUserId();
-            var courierName = HttpContext.GetUserName();
-            if(courierId == string.Empty) return Unauthorized();
+            //var courierId = HttpContext.GetUserId();
+            var courierEmail = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            var courierName = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            //if(courierId == string.Empty) return Unauthorized();
             //await Mediator.Send(new Take.Command{OrderId = id, CourierID = body.CourierId});
-            int res = await Mediator.Send(new Take.Command { OrderId = id, CourierID = courierId});
+            int res = await Mediator.Send(new Take.Command { OrderId = id, CourierEmail = courierEmail});
 
             switch (res)
             {
